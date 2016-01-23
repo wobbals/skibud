@@ -35,13 +35,20 @@
         if (_hasWaitTime) {
             _waitTimeMinutes = [dictionary valueForKey:@"WaitTimeInMinutes"];
         }
-        if ([_waitTimeMinutes isKindOfClass:[NSNull class]]) {
+        if ((id)[NSNull null] == _waitTimeMinutes) {
             _waitTimeMinutes = nil;
         }
         _displayWaitString = [dictionary valueForKey:@"DisplayForWaitTime"];
         _locationID = [dictionary valueForKey:@"LocationId"];
     }
     return self;
+}
+
++ (NSString*)preprocessChairNameForSpeech:(NSString*)chair {
+    chair = [chair lowercaseString];
+    chair = [chair stringByReplacingOccurrencesOfString:@"superchair" withString:@"super chair"];
+    chair = [chair stringByReplacingOccurrencesOfString:@"superconnect" withString:@"super connect"];
+    return chair;
 }
 
 - (NSString*)speechString

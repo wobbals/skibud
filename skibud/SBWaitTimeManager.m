@@ -24,9 +24,6 @@
     if (self) {
         _delegate = delegate;
         _waitTimes = [[SBWaitTimeCollection alloc] init];
-        dispatch_async(dispatch_get_global_queue(0, 0), ^() {
-            [self updateWaitTimes];
-        });
     }
     return self;
 }

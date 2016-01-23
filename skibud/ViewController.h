@@ -10,6 +10,14 @@
 
 @interface ViewController : UIViewController
 
+@property (readonly) IBOutlet UISwitch* masterPowerSwitch;
+@property (readonly) IBOutlet UISwitch* waitTimesAnnounceSwitch;
+@property (readonly) IBOutlet UISwitch* clockAnnounceSwitch;
+@property (readonly) IBOutlet UILabel* altimeterLabel;
+
+- (IBAction)masterPower:(id)sender;
+- (IBAction)enableWaitTimesAnnounce:(id)sender;
+- (IBAction)enableClockAnnounce:(id)sender;
 
 @end
 
