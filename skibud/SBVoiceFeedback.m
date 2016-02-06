@@ -26,35 +26,39 @@
         _synth = [[AVSpeechSynthesizer alloc] init];
         [_synth setDelegate:self];
         _speechQueue = [NSMutableArray new];
+        [self enable];
     }
     return self;
 }
 
 - (void)setupAudioSession {
-    NSError *error = NULL;
+    NSError *error = nil;
     AVAudioSession *session = [AVAudioSession sharedInstance];
     [session setCategory:AVAudioSessionCategoryPlayback
-             withOptions:AVAudioSessionCategoryOptionAllowBluetooth |
+             withOptions:
+     AVAudioSessionCategoryOptionMixWithOthers |
      AVAudioSessionCategoryOptionInterruptSpokenAudioAndMixWithOthers |
      AVAudioSessionCategoryOptionDuckOthers
                    error:&error];
     if(error) {
         NSLog(@"Error: setCategory: %@", error);
     }
-    [session setActive:YES error:&error];
-    if (error) {
-        NSLog(@"Error: setActive: %@", error);
-    }
 }
 
 - (void)maybeSpeak {
-    if (_speechQueue.count <= 0) {
-        return;
-    }
-    
+    // if talking, do nothing
     if (_synth.isSpeaking) {
         return;
     }
+
+    // if nothing to say, stop the audio session
+    if (_speechQueue.count <= 0) {
+        [[AVAudioSession sharedInstance] setActive:NO error:nil];
+        return;
+    }
+    // otherwise, start the audio session and speak
+    [[AVAudioSession sharedInstance] setActive:YES error:nil];
+    
     
     NSString* speechString = [_speechQueue objectAtIndex:0];
     [_speechQueue removeObjectAtIndex:0];
@@ -130,6 +134,10 @@
     for (SBWaitTime* waitTime in waitTimes) {
         [self enqueueSpeech:waitTime.speechString];
     }
+}
+
+- (void)say:(NSString*)phrase {
+    [self enqueueSpeech:phrase];
 }
 
 @end

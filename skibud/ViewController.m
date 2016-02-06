@@ -9,22 +9,25 @@
 #import "ViewController.h"
 #import "SBWaitTimeManager.h"
 #import "SBVoiceFeedback.h"
+#import "SBAltitudeManager.h"
 
 #import <AVFoundation/AVFoundation.h>
 #import <CoreMotion/CoreMotion.h>
 
-@interface ViewController () <SBWaitTimeManagerDelegate>
+@interface ViewController ()
+<SBWaitTimeManagerDelegate, SBAltitudeManagerDelegate,
+CLLocationManagerDelegate>
 
 @end
 
 @implementation ViewController {
     SBWaitTimeManager* _waitTimeManager;
     SBVoiceFeedback* _voiceFeedback;
-    CMAltimeter* _altimeter;
+    SBAltitudeManager* _altitudeManager;
     CMMotionManager* _motion;
+    CLLocationManager* _location;
     
-    int climbingCounts;
-    double lastAltitude;
+    void (^_completionHandler)(UIBackgroundFetchResult result);
 }
 
 @synthesize waitTimesAnnounceSwitch, masterPowerSwitch, clockAnnounceSwitch;
@@ -37,8 +40,17 @@
         
     _waitTimeManager = [[SBWaitTimeManager alloc] initWithDelegate:self];
     
-    //[self setupAltimeter];
+    _altitudeManager = [[SBAltitudeManager alloc] initWithDelegate:self];
+    [_altitudeManager setVoiceFeedback:_voiceFeedback];
     //[self setupMotion];
+    [self setupLocation];
+    
+    //[[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:1800];
+    [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+    
+    NSLog(@"refresh: %lu", [UIApplication sharedApplication].backgroundRefreshStatus);
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -46,7 +58,38 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)periodicUpdate:(void (^)(UIBackgroundFetchResult result))completionHandler
+{
+    NSLog(@"periodic update!");
+    _completionHandler = completionHandler;
+    
+    if (self.clockAnnounceSwitch.isOn) {
+        [_voiceFeedback announceTime];
+    }
+
+    if (self.waitTimesAnnounceSwitch.isOn) {
+        [_waitTimeManager updateWaitTimes];
+    } else if (nil != _completionHandler) {
+        _completionHandler(UIBackgroundFetchResultNoData);
+    }
+}
+
+- (void)setupLocation {
+    _location = [[CLLocationManager alloc] init];
+    [_location setDelegate:self];
+    NSLog(@"location authorization status: %d", [CLLocationManager authorizationStatus]);
+    [_location requestAlwaysAuthorization];
+    [_location startMonitoringSignificantLocationChanges];
+    NSLog(@"started location");
+}
+
+- (void)teardownLocation {
+    [_location stopMonitoringSignificantLocationChanges];
+    _location = nil;
+}
+
 - (void)setupMotion {
+        
     _motion = [[CMMotionManager alloc] init];
     [_motion setDeviceMotionUpdateInterval:5.0];
     [_motion startDeviceMotionUpdatesToQueue:[NSOperationQueue mainQueue]
@@ -55,32 +98,25 @@
     }];
 }
 
-- (void)setupAltimeter {
-    if(![CMAltimeter isRelativeAltitudeAvailable]){
-        NSLog(@"no altimeter!");
-        return;
-    }
-    _altimeter = [[CMAltimeter alloc] init];
-    [_altimeter startRelativeAltitudeUpdatesToQueue:[NSOperationQueue mainQueue]
-                                        withHandler:^(CMAltitudeData *altitudeData, NSError *error) {
-                                            [self updateAltitude:altitudeData];
-                                        }];
-    NSLog(@"Started altimeter");
-    self.altimeterLabel.text = @"-\n-";
+- (void)locationManager:(CLLocationManager *)manager
+didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+{
+    NSLog(@"location authorization status: %d", status);
 }
 
-- (void)updateAltitude:(CMAltitudeData*)altitudeData
-{
-    NSString *data = [NSString stringWithFormat:@"%f m",
-                      altitudeData.relativeAltitude.floatValue];
-    double currentAltitude = altitudeData.relativeAltitude.doubleValue;
-    if ((currentAltitude - lastAltitude) > 5) {
-        climbingCounts ++;
-    } else {
-        climbingCounts = 0;
+- (void)locationManager:(CLLocationManager *)manager
+     didUpdateLocations:(NSArray *)locations {
+    NSLog(@"locationManager");
+    // If it's a relatively recent event, turn off updates to save power.
+    CLLocation* location = [locations lastObject];
+    NSDate* eventDate = location.timestamp;
+    NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
+    if (abs(howRecent) < 15.0) {
+        // If the event is recent, do something with it.
+        NSLog(@"latitude %+.6f, longitude %+.6f\n",
+              location.coordinate.latitude,
+              location.coordinate.longitude);
     }
-    
-    self.altimeterLabel.text = data;
 }
 
 #pragma mark UI Events
@@ -89,9 +125,13 @@
 {
     if (self.masterPowerSwitch.isOn) {
         [_voiceFeedback enable];
+        [_altitudeManager start];
+        [self setupLocation];
     } else {
         [_voiceFeedback shutup];
         [_voiceFeedback disable];
+        [_altitudeManager stop];
+        [self teardownLocation];
     }
 }
 
@@ -104,13 +144,46 @@
 
 - (IBAction)enableClockAnnounce:(id)sender
 {
-    
+    if (self.clockAnnounceSwitch.isOn) {
+        [_voiceFeedback announceTime];
+    }
 }
-
 
 - (void)updatedWaitTimesAvailable
 {
     [_voiceFeedback announceWaitTimes:[_waitTimeManager.waitTimes waitTimesForLocation:nil]];
+    
+    if (nil != _completionHandler) {
+        void (^localCompletionHanlder)(UIBackgroundFetchResult result) = _completionHandler;
+        _completionHandler = nil;
+        localCompletionHanlder(UIBackgroundFetchResultNewData);
+    }
 }
+
+#pragma mark - SBAltitudeManagerDelegate
+
+- (void)altitudeUpdated:(NSString *)altidude {
+    self.altimeterLabel.text = altidude;
+}
+
+- (void)altitudeStateChanged:(SBAltitudeState)newState {
+    NSLog(@"altitudeStateChanged %lu", newState);
+    switch (newState) {
+        case SBAltitudeStateStable:
+            [_voiceFeedback say:@"altitude is stable"];
+            break;
+        case SBAltitudeStateDescending:
+            [_voiceFeedback say:@"altitude is falling"];
+            break;
+        case SBAltitudeStateAscending:
+            [_voiceFeedback say:@"altitude is climbing"];
+            [self periodicUpdate:nil];
+            break;
+            
+        default:
+            break;
+    }
+}
+
 
 @end

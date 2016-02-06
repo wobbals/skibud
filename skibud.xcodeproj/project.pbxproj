@@ -10,6 +10,7 @@
 		D4092B801C4C872D00D48A66 /* SBWaitTime.m in Sources */ = {isa = PBXBuildFile; fileRef = D4092B7F1C4C872D00D48A66 /* SBWaitTime.m */; };
 		D4092B831C4C880200D48A66 /* SBWaitTimeCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = D4092B821C4C880200D48A66 /* SBWaitTimeCollection.m */; };
 		D4092B861C4C904200D48A66 /* SBVoiceFeedback.m in Sources */ = {isa = PBXBuildFile; fileRef = D4092B851C4C904200D48A66 /* SBVoiceFeedback.m */; };
+		D41480B91C65899E0086BE64 /* SBAltitudeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D41480B81C65899E0086BE64 /* SBAltitudeManager.m */; };
 		D4F46C001C4AFA7D0030678A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F46BFF1C4AFA7D0030678A /* main.m */; };
 		D4F46C031C4AFA7D0030678A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F46C021C4AFA7D0030678A /* AppDelegate.m */; };
 		D4F46C061C4AFA7D0030678A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F46C051C4AFA7D0030678A /* ViewController.m */; };
@@ -19,6 +20,7 @@
 		D4F46C191C4AFA7E0030678A /* skibudTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F46C181C4AFA7E0030678A /* skibudTests.m */; };
 		D4F46C241C4AFA7E0030678A /* skibudUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F46C231C4AFA7E0030678A /* skibudUITests.m */; };
 		D4F46C331C4C805F0030678A /* SBWaitTimeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D4F46C321C4C805F0030678A /* SBWaitTimeManager.m */; };
+		DF955571CC437E782CA7D7EA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C2AE5AE49939C7C563EE6CC /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,12 +41,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C2AE5AE49939C7C563EE6CC /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		27FEF3E862EC0A30488BDC9C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		88D5B1719911E3E9AF2FCB64 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		D4092B7E1C4C872D00D48A66 /* SBWaitTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBWaitTime.h; sourceTree = "<group>"; };
 		D4092B7F1C4C872D00D48A66 /* SBWaitTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBWaitTime.m; sourceTree = "<group>"; };
 		D4092B811C4C880200D48A66 /* SBWaitTimeCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBWaitTimeCollection.h; sourceTree = "<group>"; };
 		D4092B821C4C880200D48A66 /* SBWaitTimeCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBWaitTimeCollection.m; sourceTree = "<group>"; };
 		D4092B841C4C904200D48A66 /* SBVoiceFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBVoiceFeedback.h; sourceTree = "<group>"; };
 		D4092B851C4C904200D48A66 /* SBVoiceFeedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBVoiceFeedback.m; sourceTree = "<group>"; };
+		D41480B71C65899E0086BE64 /* SBAltitudeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAltitudeManager.h; sourceTree = "<group>"; };
+		D41480B81C65899E0086BE64 /* SBAltitudeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAltitudeManager.m; sourceTree = "<group>"; };
 		D4F46BFB1C4AFA7D0030678A /* skibud.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = skibud.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4F46BFF1C4AFA7D0030678A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D4F46C011C4AFA7D0030678A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -70,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF955571CC437E782CA7D7EA /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,6 +98,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2D1880266BD9F0E744A1E2CE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				88D5B1719911E3E9AF2FCB64 /* Pods.debug.xcconfig */,
+				27FEF3E862EC0A30488BDC9C /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		D4F46BF21C4AFA7D0030678A = {
 			isa = PBXGroup;
 			children = (
@@ -97,6 +114,8 @@
 				D4F46C171C4AFA7E0030678A /* skibudTests */,
 				D4F46C221C4AFA7E0030678A /* skibudUITests */,
 				D4F46BFC1C4AFA7D0030678A /* Products */,
+				2D1880266BD9F0E744A1E2CE /* Pods */,
+				DCE4FBB46300C9DBB4B8336C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -130,6 +149,8 @@
 				D4092B821C4C880200D48A66 /* SBWaitTimeCollection.m */,
 				D4092B841C4C904200D48A66 /* SBVoiceFeedback.h */,
 				D4092B851C4C904200D48A66 /* SBVoiceFeedback.m */,
+				D41480B71C65899E0086BE64 /* SBAltitudeManager.h */,
+				D41480B81C65899E0086BE64 /* SBAltitudeManager.m */,
 			);
 			path = skibud;
 			sourceTree = "<group>";
@@ -160,6 +181,14 @@
 			path = skibudUITests;
 			sourceTree = "<group>";
 		};
+		DCE4FBB46300C9DBB4B8336C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0C2AE5AE49939C7C563EE6CC /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -167,9 +196,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D4F46C281C4AFA7E0030678A /* Build configuration list for PBXNativeTarget "skibud" */;
 			buildPhases = (
+				3BC96DE3FA2B2438890F5256 /* Check Pods Manifest.lock */,
 				D4F46BF71C4AFA7D0030678A /* Sources */,
 				D4F46BF81C4AFA7D0030678A /* Frameworks */,
 				D4F46BF91C4AFA7D0030678A /* Resources */,
+				1B126FC0915B795D6D732F6C /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -290,6 +321,39 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1B126FC0915B795D6D732F6C /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3BC96DE3FA2B2438890F5256 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D4F46BF71C4AFA7D0030678A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -297,6 +361,7 @@
 			files = (
 				D4092B801C4C872D00D48A66 /* SBWaitTime.m in Sources */,
 				D4092B861C4C904200D48A66 /* SBVoiceFeedback.m in Sources */,
+				D41480B91C65899E0086BE64 /* SBAltitudeManager.m in Sources */,
 				D4F46C061C4AFA7D0030678A /* ViewController.m in Sources */,
 				D4092B831C4C880200D48A66 /* SBWaitTimeCollection.m in Sources */,
 				D4F46C031C4AFA7D0030678A /* AppDelegate.m in Sources */,
@@ -440,6 +505,7 @@
 		};
 		D4F46C291C4AFA7E0030678A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 88D5B1719911E3E9AF2FCB64 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = skibud/Info.plist;
@@ -451,6 +517,7 @@
 		};
 		D4F46C2A1C4AFA7E0030678A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 27FEF3E862EC0A30488BDC9C /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = skibud/Info.plist;

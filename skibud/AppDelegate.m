@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "ViewController.h"
 
 @interface AppDelegate ()
 
@@ -14,6 +15,14 @@
 
 @implementation AppDelegate
 
+// add this back in if you want to use background fetch
+//- (void)application:(UIApplication *)application
+//performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult result))completionHandler
+//{
+//    ViewController* vc = (ViewController*)self.window.rootViewController;
+//    [vc periodicUpdate:completionHandler];
+//    
+//}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.

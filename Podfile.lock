@@ -1,0 +1,21 @@
+PODS:
+  - CHDataStructures (0.0.1)
+
+DEPENDENCIES:
+  - CHDataStructures (from `https://github.com/quinntaylor/CHDataStructures`, commit
+    `12cd020da5bcf57ee05a85d04e512535e89e4fcf`)
+
+EXTERNAL SOURCES:
+  CHDataStructures:
+    :commit: 12cd020da5bcf57ee05a85d04e512535e89e4fcf
+    :git: https://github.com/quinntaylor/CHDataStructures
+
+CHECKOUT OPTIONS:
+  CHDataStructures:
+    :commit: 12cd020da5bcf57ee05a85d04e512535e89e4fcf
+    :git: https://github.com/quinntaylor/CHDataStructures
+
+SPEC CHECKSUMS:
+  CHDataStructures: 33fb4295f718c9f259dee433f095f1d34135cf7f
+
+COCOAPODS: 0.38.2

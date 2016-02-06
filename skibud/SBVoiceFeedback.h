@@ -15,5 +15,6 @@
 - (void)enable;
 - (void)announceTime;
 - (void)announceWaitTimes:(NSArray*)waitTimes;
+- (void)say:(NSString*)phrase;
 
 @end

@@ -15,6 +15,7 @@
 @property (readonly) IBOutlet UISwitch* clockAnnounceSwitch;
 @property (readonly) IBOutlet UILabel* altimeterLabel;
 
+- (void)periodicUpdate:(void (^)(UIBackgroundFetchResult result))completionHandler;
 - (IBAction)masterPower:(id)sender;
 - (IBAction)enableWaitTimesAnnounce:(id)sender;
 - (IBAction)enableClockAnnounce:(id)sender;
