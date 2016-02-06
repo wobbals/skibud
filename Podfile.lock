@@ -1,9 +1,18 @@
 PODS:
   - CHDataStructures (0.0.1)
+  - CocoaLumberjack (2.2.0):
+    - CocoaLumberjack/Default (= 2.2.0)
+    - CocoaLumberjack/Extensions (= 2.2.0)
+  - CocoaLumberjack/Core (2.2.0)
+  - CocoaLumberjack/Default (2.2.0):
+    - CocoaLumberjack/Core
+  - CocoaLumberjack/Extensions (2.2.0):
+    - CocoaLumberjack/Default
 
 DEPENDENCIES:
   - CHDataStructures (from `https://github.com/quinntaylor/CHDataStructures`, commit
     `12cd020da5bcf57ee05a85d04e512535e89e4fcf`)
+  - CocoaLumberjack
 
 EXTERNAL SOURCES:
   CHDataStructures:
@@ -17,5 +26,6 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   CHDataStructures: 33fb4295f718c9f259dee433f095f1d34135cf7f
+  CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
 
 COCOAPODS: 0.38.2

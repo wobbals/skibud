@@ -59,7 +59,7 @@
             [[SBWaitTime alloc] initWithGroomingArea:groomingAreaName
                                           dictionary:location];
             [_waitTimes saveWaitTime:waitTime];
-            NSLog(@"%@", [waitTime speechString]);
+            DDLogDebug(@"%@", [waitTime speechString]);
         }
     }
     [_delegate updatedWaitTimesAvailable];

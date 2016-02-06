@@ -53,7 +53,7 @@
 
 - (void)setupAltimeter {
     if(![CMAltimeter isRelativeAltitudeAvailable]){
-        NSLog(@"no altimeter!");
+        DDLogDebug(@"no altimeter!");
         return;
     }
     _altimeter = [[CMAltimeter alloc] init];
@@ -61,13 +61,13 @@
                                         withHandler:^(CMAltitudeData *altitudeData, NSError *error) {
                                             [self updateAltitude:altitudeData];
                                         }];
-    NSLog(@"Started altimeter");
+    DDLogDebug(@"Started altimeter");
     [_delegate altitudeUpdated:@"-\n-"];
 }
 
 - (void)updateAltitude:(CMAltitudeData*)altitudeData
 {
-    NSLog(@"altitude %f",
+    DDLogDebug(@"altitude %f",
           altitudeData.relativeAltitude.doubleValue);
     [_recentAltitudes addObject:altitudeData];
     // fun fact: CHCircularBuffer is not fixed size, so we need to prune old
@@ -91,7 +91,7 @@
 }
 
 - (void)processAltitudeHistory {
-    NSLog(@"processing altitude history. n=%lu", _recentAltitudes.count);
+    DDLogDebug(@"processing altitude history. n=%lu", _recentAltitudes.count);
     // 1: Calculate linear regression
     double xbar = 0;
     double ybar = 0;
@@ -120,7 +120,7 @@
     }
     double m = a / b;
     double deltat = maxx - minx;
-    NSLog(@"altitude trendline is %f over %f seconds", m, deltat);
+    DDLogDebug(@"altitude trendline is %f over %f seconds", m, deltat);
     
     // 2: Announce trendline slope to delegate, if changed
     SBAltitudeState newState;

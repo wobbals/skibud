@@ -10,7 +10,6 @@
 
 @interface SBVoiceFeedback : NSObject
 
-- (void)shutup;
 - (void)disable;
 - (void)enable;
 - (void)announceTime;

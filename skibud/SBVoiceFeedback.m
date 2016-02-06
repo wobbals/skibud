@@ -18,6 +18,7 @@
 @implementation SBVoiceFeedback {
     AVSpeechSynthesizer* _synth;
     NSMutableArray* _speechQueue;
+    BOOL _acceptingSpeech;
 }
 
 - (instancetype)init {
@@ -41,7 +42,7 @@
      AVAudioSessionCategoryOptionDuckOthers
                    error:&error];
     if(error) {
-        NSLog(@"Error: setCategory: %@", error);
+        DDLogDebug(@"Error: setCategory: %@", error);
     }
 }
 
@@ -73,9 +74,19 @@
 - (void)enqueueSpeech:(NSString*)speechString
 {
     @synchronized(self) {
+        if (!_acceptingSpeech) {
+            return;
+        }
         [_speechQueue addObject:speechString];
         [self maybeSpeak];
     }
+}
+
+- (void)speechSynthesizer:(AVSpeechSynthesizer *)synthesizer
+ didCancelSpeechUtterance:(AVSpeechUtterance *)utterance
+{
+    AVAudioSession* session = [AVAudioSession sharedInstance];
+    [session setActive:NO error:nil];
 }
 
 - (void)speechSynthesizer:(AVSpeechSynthesizer *)synthesizer
@@ -88,20 +99,28 @@
 
 - (void)shutup {
     [_speechQueue removeAllObjects];
-    [_synth stopSpeakingAtBoundary:AVSpeechBoundaryWord];
+    if (_synth.isSpeaking) {
+        [_synth stopSpeakingAtBoundary:AVSpeechBoundaryWord];
+    } else {
+        AVAudioSession* session = [AVAudioSession sharedInstance];
+        [session setActive:NO error:nil];
+    }
 }
 
 - (void)disable
 {
-    // wait a sec to allow speaking to finish
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        AVAudioSession* session = [AVAudioSession sharedInstance];
-        [session setActive:NO error:nil];
-    });
+    @synchronized(self) {
+        [self shutup];
+        _acceptingSpeech = NO;
+    }
 }
 
 - (void)enable
 {
+    @synchronized(self) {
+        _acceptingSpeech = YES;
+    }
+    
     dispatch_async(dispatch_get_global_queue(0, 0), ^() {
         [self setupAudioSession];
     });
@@ -124,7 +143,7 @@
     [NSString stringWithFormat:@"%@ %@ %@",
      currentTimeHours, minutesPadded, amPm];
     
-    NSLog(@"%@", spokenDateString);
+    DDLogDebug(@"%@", spokenDateString);
     [self enqueueSpeech:spokenDateString];
 
 }

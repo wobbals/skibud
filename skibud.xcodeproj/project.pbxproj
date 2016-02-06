@@ -52,6 +52,7 @@
 		D4092B851C4C904200D48A66 /* SBVoiceFeedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBVoiceFeedback.m; sourceTree = "<group>"; };
 		D41480B71C65899E0086BE64 /* SBAltitudeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBAltitudeManager.h; sourceTree = "<group>"; };
 		D41480B81C65899E0086BE64 /* SBAltitudeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBAltitudeManager.m; sourceTree = "<group>"; };
+		D41480BA1C66B9DE0086BE64 /* SkiBud.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkiBud.pch; sourceTree = "<group>"; };
 		D4F46BFB1C4AFA7D0030678A /* skibud.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = skibud.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4F46BFF1C4AFA7D0030678A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D4F46C011C4AFA7D0030678A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -134,23 +135,23 @@
 			children = (
 				D4F46C011C4AFA7D0030678A /* AppDelegate.h */,
 				D4F46C021C4AFA7D0030678A /* AppDelegate.m */,
-				D4F46C041C4AFA7D0030678A /* ViewController.h */,
-				D4F46C051C4AFA7D0030678A /* ViewController.m */,
-				D4F46C071C4AFA7D0030678A /* Main.storyboard */,
 				D4F46C0A1C4AFA7D0030678A /* Assets.xcassets */,
-				D4F46C0C1C4AFA7D0030678A /* LaunchScreen.storyboard */,
 				D4F46C0F1C4AFA7D0030678A /* Info.plist */,
-				D4F46BFE1C4AFA7D0030678A /* Supporting Files */,
-				D4F46C311C4C805F0030678A /* SBWaitTimeManager.h */,
-				D4F46C321C4C805F0030678A /* SBWaitTimeManager.m */,
+				D4F46C0C1C4AFA7D0030678A /* LaunchScreen.storyboard */,
+				D4F46C071C4AFA7D0030678A /* Main.storyboard */,
+				D41480B71C65899E0086BE64 /* SBAltitudeManager.h */,
+				D41480B81C65899E0086BE64 /* SBAltitudeManager.m */,
+				D4092B841C4C904200D48A66 /* SBVoiceFeedback.h */,
+				D4092B851C4C904200D48A66 /* SBVoiceFeedback.m */,
 				D4092B7E1C4C872D00D48A66 /* SBWaitTime.h */,
 				D4092B7F1C4C872D00D48A66 /* SBWaitTime.m */,
 				D4092B811C4C880200D48A66 /* SBWaitTimeCollection.h */,
 				D4092B821C4C880200D48A66 /* SBWaitTimeCollection.m */,
-				D4092B841C4C904200D48A66 /* SBVoiceFeedback.h */,
-				D4092B851C4C904200D48A66 /* SBVoiceFeedback.m */,
-				D41480B71C65899E0086BE64 /* SBAltitudeManager.h */,
-				D41480B81C65899E0086BE64 /* SBAltitudeManager.m */,
+				D4F46C311C4C805F0030678A /* SBWaitTimeManager.h */,
+				D4F46C321C4C805F0030678A /* SBWaitTimeManager.m */,
+				D4F46BFE1C4AFA7D0030678A /* Supporting Files */,
+				D4F46C041C4AFA7D0030678A /* ViewController.h */,
+				D4F46C051C4AFA7D0030678A /* ViewController.m */,
 			);
 			path = skibud;
 			sourceTree = "<group>";
@@ -159,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				D4F46BFF1C4AFA7D0030678A /* main.m */,
+				D41480BA1C66B9DE0086BE64 /* SkiBud.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -447,6 +449,8 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = skibud/SkiBud.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -489,6 +493,8 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = skibud/SkiBud.pch;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;

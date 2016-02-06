@@ -48,7 +48,7 @@ CLLocationManagerDelegate>
     //[[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:1800];
     [[UIApplication sharedApplication] setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     
-    NSLog(@"refresh: %lu", [UIApplication sharedApplication].backgroundRefreshStatus);
+    DDLogDebug(@"refresh: %lu", [UIApplication sharedApplication].backgroundRefreshStatus);
     
     
 }
@@ -60,7 +60,7 @@ CLLocationManagerDelegate>
 
 - (void)periodicUpdate:(void (^)(UIBackgroundFetchResult result))completionHandler
 {
-    NSLog(@"periodic update!");
+    DDLogDebug(@"periodic update!");
     _completionHandler = completionHandler;
     
     if (self.clockAnnounceSwitch.isOn) {
@@ -77,10 +77,10 @@ CLLocationManagerDelegate>
 - (void)setupLocation {
     _location = [[CLLocationManager alloc] init];
     [_location setDelegate:self];
-    NSLog(@"location authorization status: %d", [CLLocationManager authorizationStatus]);
+    DDLogDebug(@"location authorization status: %d", [CLLocationManager authorizationStatus]);
     [_location requestAlwaysAuthorization];
     [_location startMonitoringSignificantLocationChanges];
-    NSLog(@"started location");
+    DDLogDebug(@"started location");
 }
 
 - (void)teardownLocation {
@@ -94,26 +94,26 @@ CLLocationManagerDelegate>
     [_motion setDeviceMotionUpdateInterval:5.0];
     [_motion startDeviceMotionUpdatesToQueue:[NSOperationQueue mainQueue]
                                  withHandler:^(CMDeviceMotion * _Nullable motion, NSError * _Nullable error) {
-                                     NSLog(@"motion");
+                                     DDLogDebug(@"motion");
     }];
 }
 
 - (void)locationManager:(CLLocationManager *)manager
 didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
-    NSLog(@"location authorization status: %d", status);
+    DDLogDebug(@"location authorization status: %d", status);
 }
 
 - (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray *)locations {
-    NSLog(@"locationManager");
+    DDLogDebug(@"locationManager");
     // If it's a relatively recent event, turn off updates to save power.
     CLLocation* location = [locations lastObject];
     NSDate* eventDate = location.timestamp;
     NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
     if (abs(howRecent) < 15.0) {
         // If the event is recent, do something with it.
-        NSLog(@"latitude %+.6f, longitude %+.6f\n",
+        DDLogDebug(@"latitude %+.6f, longitude %+.6f\n",
               location.coordinate.latitude,
               location.coordinate.longitude);
     }
@@ -128,7 +128,6 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status
         [_altitudeManager start];
         [self setupLocation];
     } else {
-        [_voiceFeedback shutup];
         [_voiceFeedback disable];
         [_altitudeManager stop];
         [self teardownLocation];
@@ -167,7 +166,7 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 }
 
 - (void)altitudeStateChanged:(SBAltitudeState)newState {
-    NSLog(@"altitudeStateChanged %lu", newState);
+    DDLogDebug(@"altitudeStateChanged %lu", newState);
     switch (newState) {
         case SBAltitudeStateStable:
             [_voiceFeedback say:@"altitude is stable"];
