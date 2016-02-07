@@ -31,6 +31,7 @@
     if (self) {
         _groomingArea = groomingArea;
         _chairName = [dictionary valueForKey:@"Name"];
+        _chairName = [[self class] preprocessChairNameForSpeech:_chairName];
         _hasWaitTime = [dictionary valueForKey:@"HasWaitTime"];
         if (_hasWaitTime) {
             _waitTimeMinutes = [dictionary valueForKey:@"WaitTimeInMinutes"];
@@ -48,6 +49,7 @@
     chair = [chair lowercaseString];
     chair = [chair stringByReplacingOccurrencesOfString:@"superchair" withString:@"super chair"];
     chair = [chair stringByReplacingOccurrencesOfString:@"superconnect" withString:@"super connect"];
+    chair = [chair stringByReplacingOccurrencesOfString:@"a chair" withString:@"eigh chair"];
     return chair;
 }
 
