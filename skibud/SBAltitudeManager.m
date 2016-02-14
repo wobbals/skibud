@@ -13,7 +13,7 @@
 #import <CoreMotion/CoreMotion.h>
 
 #define ALTITUDE_PROCESSING_INTERVAL_SECONDS 60
-#define ALTITUDE_CHANGE_METERS_PER_SECOND_THRESHOLD 1.0
+#define ALTITUDE_CHANGE_METERS_PER_SECOND_THRESHOLD 0.15
 
 @implementation SBAltitudeManager {
     CMAltimeter* _altimeter;

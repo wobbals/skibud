@@ -79,12 +79,17 @@ CLLocationManagerDelegate>
     [_location setDelegate:self];
     DDLogDebug(@"location authorization status: %d", [CLLocationManager authorizationStatus]);
     [_location requestAlwaysAuthorization];
-    [_location startMonitoringSignificantLocationChanges];
+    [_location setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
+    [_location setDistanceFilter:100];
+    [_location setAllowsBackgroundLocationUpdates:YES];
+    [_location startUpdatingLocation];
+    //[_location startMonitoringSignificantLocationChanges];
     DDLogDebug(@"started location");
 }
 
 - (void)teardownLocation {
-    [_location stopMonitoringSignificantLocationChanges];
+    [_location stopUpdatingLocation];
+    //[_location stopMonitoringSignificantLocationChanges];
     _location = nil;
 }
 
@@ -113,9 +118,10 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status
     NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
     if (abs(howRecent) < 15.0) {
         // If the event is recent, do something with it.
-        DDLogDebug(@"latitude %+.6f, longitude %+.6f\n",
+        DDLogDebug(@"latitude %+.6f, longitude %+.6f, altitude %f\n",
               location.coordinate.latitude,
-              location.coordinate.longitude);
+              location.coordinate.longitude,
+                   location.altitude);
     }
 }
 
